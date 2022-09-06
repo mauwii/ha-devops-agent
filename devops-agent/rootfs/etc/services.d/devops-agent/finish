@@ -1,0 +1,12 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# Take down the S6 supervision tree when devops-agent fails
+# ==============================================================================
+
+if [[ "$1" -ne 0 ]] && [[ "$1" -ne 256 ]]; then
+  bashio::log.warning "DevOps-Agent crashed, halting add-on"
+  /run/s6/basedir/bin/halt
+fi
+
+bashio::log.info "DevOps-Agent Stopped, restarting"

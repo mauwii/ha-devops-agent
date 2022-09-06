@@ -1,0 +1,27 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# Start the devops-agent
+# ==============================================================================
+
+bashio::log.info "Starting DevOps-Agent"
+
+# declare, asign and export env
+declare AZP_AGENT_NAME
+declare AZP_POOL
+declare AZP_URL
+declare AZP_TOKEN
+
+AZP_AGENT_NAME="$(bashio::config 'agentname')"
+AZP_POOL="$(bashio::config 'pool')"
+AZP_URL="$(bashio::config 'organization')"
+AZP_TOKEN="$(bashio::config 'token')"
+
+export AZP_AGENT_NAME
+export AZP_POOL
+export AZP_URL
+export AZP_TOKEN
+
+# Start DevOps-Agent
+cd /azp || bashio::exit.nok "Could not change working directory to /azp"
+exec ./start.sh

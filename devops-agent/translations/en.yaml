@@ -1,0 +1,14 @@
+---
+configuration:
+  agentname:
+    name: Agent name
+    description: Name to identify the Agent in DevOps.
+  pool:
+    name: Agent pool
+    description: Agent pool which the Agent will connect to.
+  organization:
+    name: Organization
+    description: The URL of the Azure DevOps or Azure DevOps Server instance.
+  token:
+    name: Personal Access Token
+    description: Personal Access Token (PAT) with Agent Pools (read, manage) scope.
