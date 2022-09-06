@@ -10,5 +10,5 @@ configuration:
     name: Organization
     description: The URL of the Azure DevOps or Azure DevOps Server instance.
   token:
-    name: Personal Access Token
-    description: Personal Access Token (PAT) with Agent Pools (read, manage) scope.
+    name: Personal Access Token (PAT)
+    description: PAT with Agent Pools (read, manage) scope.

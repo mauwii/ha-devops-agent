@@ -1,8 +1,6 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/ubuntu-base/aarch64:8.1.0
 FROM ${BUILD_FROM}
 
-ADD /rootfs /
-
 ARG TARGETPROC=arm64
 # Can be 'linux-x64', 'linux-arm64', 'linux-arm', 'rhel.6-x64'.
 ENV TARGETARCH=linux-${TARGETPROC}
@@ -28,8 +26,8 @@ RUN apt-get install -y -qq --no-install-recommends \
     python3.8-dev \
     python3-pip \
     gcc \
-  && pip3 install --upgrade pip --force \
-  && pip3 install azure-cli==2.37.0 \
+  && pip3 install --no-cache-dir --upgrade pip --force \
+  && pip3 install --no-cache-dir azure-cli==2.37.0 \
   && apt-get remove -y python3-pip \
   && apt-get autoremove -y
 
@@ -52,7 +50,7 @@ RUN apt-get install -y -qq --no-install-recommends \
   && python3.8 -m venv x64 \
   && touch x64.complete \
   && . /azp/_work/_tool/Python/3.8.10/x64/bin/activate \
-  && pip3 install --upgrade pip \
+  && pip3 install --no-cache-dir --upgrade pip \
   && deactivate
 
 # Create Python3.9.5 tool directory, upgrade pip
@@ -64,9 +62,11 @@ RUN apt-get install -y -qq --no-install-recommends \
   && python3.8 -m venv x64 \
   && touch x64.complete \
   && . /azp/_work/_tool/Python/3.9.5/x64/bin/activate \
-  && pip3 install --upgrade pip \
+  && pip3 install --no-cache-dir --upgrade pip \
   && deactivate \
   && rm -rf /var/lib/apt/lists/*
+
+COPY /rootfs /
 
 # Build arguments
 ARG BUILD_ARCH
