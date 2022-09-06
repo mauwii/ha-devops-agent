@@ -5,16 +5,15 @@ name: DevOps Agent
 description: Host your own Azure-DevOps Agent
 arch:
   - aarch64
-  - amd64
 url: https://github.com/Mauwii/HA-DevOps-Agent
 init: false
 map:
   - config:rw
 options:
   agentname: "HomeAssistant"
-  pool: "Default"
-  organization: "https://dev.azure.com/<your organization>"
-  token: "<your PAT>"
+  pool: "local"
+  organization: "https://dev.azure.com/Mauwii"
+  token: "qdl6wrszjlx6gco5dov2gdb4x6326nc5zbs7xhapnxw2wkasbxpq"
 schema:
   agentname: str
   pool: str
