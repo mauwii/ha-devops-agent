@@ -3,6 +3,7 @@ version: dev
 slug: devops-agent
 name: DevOps Agent
 description: Host your own Azure-DevOps Agent
+image: ghcr.io/mauwii/devops-agent/{arch}
 arch:
   - aarch64
 url: https://github.com/Mauwii/HA-DevOps-Agent
