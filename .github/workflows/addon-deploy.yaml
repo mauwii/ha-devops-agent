@@ -1,5 +1,5 @@
 ---
-name: Deploy
+name: addon-deploy
 
 # yamllint disable-line rule:truthy
 on:
