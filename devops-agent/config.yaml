@@ -12,9 +12,9 @@ map:
   - config:rw
 options:
   agentname: "HomeAssistant"
-  pool: "local"
-  organization: "https://dev.azure.com/Mauwii"
-  token: "qdl6wrszjlx6gco5dov2gdb4x6326nc5zbs7xhapnxw2wkasbxpq"
+  pool: "Default"
+  organization: "https://dev.azure.com/<your organization>"
+  token: "<your personal access token>"
 schema:
   agentname: str
   pool: str
