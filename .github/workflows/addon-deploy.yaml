@@ -54,7 +54,7 @@ jobs:
         id: release
         run: |
           sha="${{ github.sha }}"
-          environment="dev"
+          environment="edge"
           version="${sha:0:7}"
           if [[ "${{ github.event_name }}" = "release" ]]; then
             version="${{ github.event.release.tag_name }}"
@@ -188,29 +188,29 @@ jobs:
           docker push \
             "ghcr.io/mauwii/${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:${{ needs.information.outputs.version }}"
 
-  # publish-edge:
-  #   name: 📢 Publish to edge repository
-  #   if: needs.information.outputs.environment == 'edge'
-  #   needs:
-  #     - information
-  #     - deploy
-  #   environment:
-  #     name: ${{ needs.information.outputs.environment }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: 🚀 Dispatch repository updater update signal
-  #       uses: peter-evans/repository-dispatch@v2.0.0
-  #       with:
-  #         token: ${{ secrets.DISPATCH_TOKEN }}
-  #         repository: ${{ github.repository_owner }}/repository-edge
-  #         event-type: update
-  #         client-payload: >
-  #           {
-  #             "addon": "${{ needs.information.outputs.slug }}",
-  #             "name": "${{ needs.information.outputs.name }}",
-  #             "repository": "${{ github.repository }}",
-  #             "version": "${{ needs.information.outputs.version }}"
-  #           }
+  publish-edge:
+    name: 📢 Publish to edge repository
+    if: needs.information.outputs.environment == 'edge'
+    needs:
+      - information
+      - deploy
+    environment:
+      name: ${{ needs.information.outputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Dispatch repository updater update signal
+        uses: peter-evans/repository-dispatch@v2.0.0
+        with:
+          token: ${{ secrets.DISPATCH_TOKEN }}
+          repository: ${{ github.repository_owner }}/ha-repository-edge
+          event-type: update
+          client-payload: >
+            {
+              "addon": "${{ needs.information.outputs.slug }}",
+              "name": "${{ needs.information.outputs.name }}",
+              "repository": "${{ github.repository }}",
+              "version": "${{ needs.information.outputs.version }}"
+            }
 
   # publish-beta:
   #   name: 📢 Publish to beta repository
