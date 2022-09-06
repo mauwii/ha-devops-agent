@@ -114,8 +114,8 @@ LABEL \
   io.hass.description="${BUILD_DESCRIPTION}" \
   io.hass.arch="${BUILD_ARCH}" \
   io.hass.type="addon" \
-  io.hass.version="${BUILD_VERSION}" \
-  maintainer="Matthias Wild <mauwii@outlook.de>"\
+  io.hass.version=${BUILD_VERSION} \
+  maintainer="Matthias Wild <mauwii@outlook.de>" \
   org.opencontainers.image.authors="Matthias Wild <mauwii@outlook.de>" \
   org.opencontainers.image.created=${BUILD_DATE} \
   org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
