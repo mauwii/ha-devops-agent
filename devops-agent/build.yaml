@@ -3,4 +3,4 @@ build_from:
   aarch64: "ghcr.io/hassio-addons/ubuntu-base/aarch64:8.1.0"
 codenotary:
   base_image: codenotary@frenck.dev
-  signer: mauwii@outlook.de
+  signer: Mauwii@outlook.de
