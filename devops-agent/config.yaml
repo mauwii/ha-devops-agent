@@ -5,7 +5,7 @@ name: DevOps Agent
 description: Host your own Azure-DevOps Agent
 arch:
   - aarch64
-url: https://github.com/Mauwii/HA-DevOps-Agent
+url: https://github.com/Mauwii/ha-devops-agent
 codenotary: Mauwii@outlook.de
 init: false
 map:
