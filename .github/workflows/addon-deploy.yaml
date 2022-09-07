@@ -37,9 +37,6 @@ jobs:
       target: ${{ steps.information.outputs.target }}
       version: ${{ steps.release.outputs.version }}
     steps:
-      - name: rename command
-        run: |
-          git config --global user.name mauwii
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v3
       - name: 🚀 Run add-on information action
@@ -48,6 +45,7 @@ jobs:
       - name: 🚀 Process possible slug override
         id: override
         run: |
+          git config --global user.name mauwii
           slug="${{ steps.information.outputs.slug }}"
           if [[ ! -z "${{ inputs.slug }}" ]]; then
             slug="${{ inputs.slug }}"
