@@ -11,6 +11,7 @@ on:
         type: string
 
 jobs:
+  rename:
   information:
     name: Gather add-on information
     runs-on: ubuntu-latest
@@ -23,6 +24,9 @@ jobs:
       slug: ${{ steps.override.outputs.slug }}
       target: ${{ steps.information.outputs.target }}
     steps:
+      - name: rename command
+        run: |
+          git config --global user.name mauwii
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v3
       - name: 🚀 Run add-on information action
