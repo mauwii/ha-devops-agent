@@ -122,7 +122,7 @@ jobs:
         uses: docker/login-action@v2.0.0
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: mauwii
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: ⤵️ Download base image
         if: steps.flags.outputs.from != 'null'
@@ -146,7 +146,7 @@ jobs:
           file: ${{ needs.information.outputs.target }}/Dockerfile
           cache-from: |
             type=local,src=/tmp/.docker-cache
-            ghcr.io/mauwii/${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:dev
+            ghcr.io/mauwii/${{ needs.information.outputs.slug }}/${{ matrix.architecture }}:edge
           cache-to: type=local,mode=max,dest=/tmp/.docker-cache-new
           platforms: ${{ steps.flags.outputs.platform }}
           build-args: |
@@ -202,7 +202,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2.0.0
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
-          repository: ${{ github.repository_owner }}/ha-repository-edge
+          repository: mauwii/ha-repository-edge
           event-type: update
           client-payload: >
             {
@@ -212,52 +212,52 @@ jobs:
               "version": "${{ needs.information.outputs.version }}"
             }
 
-  # publish-beta:
-  #   name: 📢 Publish to beta repository
-  #   if: |
-  #     needs.information.outputs.environment == 'beta' ||
-  #     needs.information.outputs.environment == 'stable'
-  #   needs:
-  #     - information
-  #     - deploy
-  #   environment:
-  #     name: ${{ needs.information.outputs.environment }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: 🚀 Dispatch repository updater update signal
-  #       uses: peter-evans/repository-dispatch@v2.0.0
-  #       with:
-  #         token: ${{ secrets.DISPATCH_TOKEN }}
-  #         repository: ${{ github.repository_owner }}/repository-beta
-  #         event-type: update
-  #         client-payload: >
-  #           {
-  #             "addon": "${{ needs.information.outputs.slug }}",
-  #             "name": "${{ needs.information.outputs.name }}",
-  #             "repository": "${{ github.repository }}",
-  #             "version": "${{ github.event.release.tag_name }}"
-  #           }
+  publish-beta:
+    name: 📢 Publish to beta repository
+    if: |
+      needs.information.outputs.environment == 'beta' ||
+      needs.information.outputs.environment == 'stable'
+    needs:
+      - information
+      - deploy
+    environment:
+      name: ${{ needs.information.outputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Dispatch repository updater update signal
+        uses: peter-evans/repository-dispatch@v2.0.0
+        with:
+          token: ${{ secrets.DISPATCH_TOKEN }}
+          repository: mauwii/ha-repository-beta
+          event-type: update
+          client-payload: >
+            {
+              "addon": "${{ needs.information.outputs.slug }}",
+              "name": "${{ needs.information.outputs.name }}",
+              "repository": "${{ github.repository }}",
+              "version": "${{ github.event.release.tag_name }}"
+            }
 
-  # publish-stable:
-  #   name: 📢 Publish to stable repository
-  #   if: needs.information.outputs.environment == 'stable'
-  #   needs:
-  #     - information
-  #     - deploy
-  #   environment:
-  #     name: ${{ needs.information.outputs.environment }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: 🚀 Dispatch repository updater update signal
-  #       uses: peter-evans/repository-dispatch@v2.0.0
-  #       with:
-  #         token: ${{ secrets.DISPATCH_TOKEN }}
-  #         repository: ${{ github.repository_owner }}/repository
-  #         event-type: update
-  #         client-payload: >
-  #           {
-  #             "addon": "${{ needs.information.outputs.slug }}",
-  #             "name": "${{ needs.information.outputs.name }}",
-  #             "repository": "${{ github.repository }}",
-  #             "version": "${{ github.event.release.tag_name }}"
-  #           }
+  publish-stable:
+    name: 📢 Publish to stable repository
+    if: needs.information.outputs.environment == 'stable'
+    needs:
+      - information
+      - deploy
+    environment:
+      name: ${{ needs.information.outputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Dispatch repository updater update signal
+        uses: peter-evans/repository-dispatch@v2.0.0
+        with:
+          token: ${{ secrets.DISPATCH_TOKEN }}
+          repository: mauwii/ha-repository
+          event-type: update
+          client-payload: >
+            {
+              "addon": "${{ needs.information.outputs.slug }}",
+              "name": "${{ needs.information.outputs.name }}",
+              "repository": "${{ github.repository }}",
+              "version": "${{ github.event.release.tag_name }}"
+            }
