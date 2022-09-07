@@ -45,7 +45,6 @@ jobs:
       - name: 🚀 Process possible slug override
         id: override
         run: |
-          git config --global user.name mauwii
           slug="${{ steps.information.outputs.slug }}"
           if [[ ! -z "${{ inputs.slug }}" ]]; then
             slug="${{ inputs.slug }}"
@@ -157,7 +156,7 @@ jobs:
             BUILD_FROM=${{ steps.flags.outputs.from }}
             BUILD_NAME=${{ needs.information.outputs.name }}
             BUILD_REF=${{ github.sha }}
-            BUILD_REPOSITORY=${{ github.repository }}
+            BUILD_REPOSITORY=mauwii/ha-devops-agent
             BUILD_VERSION=${{ needs.information.outputs.version }}
       - name: 🔏 Notarize
         if: needs.information.outputs.signer != 'null'
@@ -213,52 +212,52 @@ jobs:
               "version": "${{ needs.information.outputs.version }}"
             }
 
-  publish-beta:
-    name: 📢 Publish to beta repository
-    if: |
-      needs.information.outputs.environment == 'beta' ||
-      needs.information.outputs.environment == 'stable'
-    needs:
-      - information
-      - deploy
-    environment:
-      name: ${{ needs.information.outputs.environment }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🚀 Dispatch repository updater update signal
-        uses: peter-evans/repository-dispatch@v2.0.0
-        with:
-          token: ${{ secrets.DISPATCH_TOKEN }}
-          repository: mauwii/ha-repository-beta
-          event-type: update
-          client-payload: >
-            {
-              "addon": "${{ needs.information.outputs.slug }}",
-              "name": "${{ needs.information.outputs.name }}",
-              "repository": "${{ github.repository }}",
-              "version": "${{ github.event.release.tag_name }}"
-            }
+  # publish-beta:
+  #   name: 📢 Publish to beta repository
+  #   if: |
+  #     needs.information.outputs.environment == 'beta' ||
+  #     needs.information.outputs.environment == 'stable'
+  #   needs:
+  #     - information
+  #     - deploy
+  #   environment:
+  #     name: ${{ needs.information.outputs.environment }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 🚀 Dispatch repository updater update signal
+  #       uses: peter-evans/repository-dispatch@v2.0.0
+  #       with:
+  #         token: ${{ secrets.DISPATCH_TOKEN }}
+  #         repository: mauwii/ha-repository-beta
+  #         event-type: update
+  #         client-payload: >
+  #           {
+  #             "addon": "${{ needs.information.outputs.slug }}",
+  #             "name": "${{ needs.information.outputs.name }}",
+  #             "repository": "${{ github.repository }}",
+  #             "version": "${{ github.event.release.tag_name }}"
+  #           }
 
-  publish-stable:
-    name: 📢 Publish to stable repository
-    if: needs.information.outputs.environment == 'stable'
-    needs:
-      - information
-      - deploy
-    environment:
-      name: ${{ needs.information.outputs.environment }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🚀 Dispatch repository updater update signal
-        uses: peter-evans/repository-dispatch@v2.0.0
-        with:
-          token: ${{ secrets.DISPATCH_TOKEN }}
-          repository: mauwii/ha-repository
-          event-type: update
-          client-payload: >
-            {
-              "addon": "${{ needs.information.outputs.slug }}",
-              "name": "${{ needs.information.outputs.name }}",
-              "repository": "${{ github.repository }}",
-              "version": "${{ github.event.release.tag_name }}"
-            }
+  # publish-stable:
+  #   name: 📢 Publish to stable repository
+  #   if: needs.information.outputs.environment == 'stable'
+  #   needs:
+  #     - information
+  #     - deploy
+  #   environment:
+  #     name: ${{ needs.information.outputs.environment }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 🚀 Dispatch repository updater update signal
+  #       uses: peter-evans/repository-dispatch@v2.0.0
+  #       with:
+  #         token: ${{ secrets.DISPATCH_TOKEN }}
+  #         repository: mauwii/ha-repository
+  #         event-type: update
+  #         client-payload: >
+  #           {
+  #             "addon": "${{ needs.information.outputs.slug }}",
+  #             "name": "${{ needs.information.outputs.name }}",
+  #             "repository": "${{ github.repository }}",
+  #             "version": "${{ github.event.release.tag_name }}"
+  #           }

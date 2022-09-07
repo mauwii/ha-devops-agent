@@ -124,6 +124,6 @@ LABEL \
   org.opencontainers.image.revision=${BUILD_REF} \
   org.opencontainers.image.source="https://github.com/mauwii/ha-devops-agent" \
   org.opencontainers.image.title="${BUILD_NAME}" \
-  org.opencontainers.image.url="https://github.com/mauwii/HA-DevOps-Agent.git" \
+  org.opencontainers.image.url="https://github.com/mauwii/ha-devops-agent" \
   org.opencontainers.image.vendor="Home Assistant Community Add-ons" \
   org.opencontainers.image.version=${BUILD_VERSION}
