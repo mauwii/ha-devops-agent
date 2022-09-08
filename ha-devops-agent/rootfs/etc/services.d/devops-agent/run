@@ -1,7 +1,8 @@
 #!/command/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # s6-overlay docs: https://github.com/just-containers/s6-overlay
-# Start the devops-agent
+# Start the ha-devops-agent
 # ==============================================================================
 
 bashio::log.info "Starting DevOps-Agent"
