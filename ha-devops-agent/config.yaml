@@ -1,7 +1,7 @@
 ---
 version: dev
-slug: devops-agent
-name: DevOps Agent
+slug: ha-devops-agent
+name: HA-DevOps-Agent
 description: Host your own Azure-DevOps Agent
 arch:
   - aarch64
