@@ -1,11 +1,11 @@
 ---
-version: dev
-slug: ha-devops-agent
 name: DevOps-Agent
 description: Host your own Azure-DevOps Agent
+version: dev
+slug: ha-devops-agent
 arch:
   - aarch64
-url: https://github.com/Mauwii/ha-devops-agent
+url: https://github.com/mauwii/ha-devops-agent
 codenotary: Mauwii@outlook.de
 init: false
 map:
