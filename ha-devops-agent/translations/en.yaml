@@ -1,5 +1,11 @@
 ---
 configuration:
+  install_packages:
+    name: Packages
+    description: List of packages to install before the agent starts.
+  init_commands:
+    name: Commands
+    description: Commands to run after Packages where installed.
   agentname:
     name: Agent name
     description: Name to identify the Agent in DevOps.

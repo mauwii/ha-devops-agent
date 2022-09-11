@@ -11,11 +11,17 @@ init: false
 map:
   - config:rw
 options:
+  install_packages: []
+  init_commands: []
   agentname: "HomeAssistant"
   pool: "Default"
   organization: "https://dev.azure.com/<your organization>"
   token: "<your personal access token>"
 schema:
+  install_packages:
+    - str
+  init_commands:
+    - str
   agentname: str
   pool: str
   organization: url
